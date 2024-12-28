@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, getRepository } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Feedback } from "./feedback.entity";
 
 @Entity()
 export class User {
@@ -10,4 +11,7 @@ export class User {
 
     @Column()
     password!: string;
+
+    @OneToMany(() => Feedback, feedback => feedback.user) // Связь один ко многим с Feedback
+    feedbacks!: Feedback[];
 }
