@@ -3,6 +3,7 @@ import { UnauthorizedError, ValidationError } from "../lib/appError";
 import { NextFunction, Request, Response } from "express";
 import { logger } from "../lib/logger";
 import { User } from "../database/entities/user.entity";
+import { userRepository } from "../database/repositories/user.repository";
 
 // Расширяем тип Request внутри этого файла
 declare global {
@@ -31,7 +32,12 @@ export async function checkAuthMiddleware(
             throw new UnauthorizedError("Authentication error: invalid token");
         }
 
-        req.user = result as User;
+        const user = await userRepository.findUserByEmail(result.email);
+        if (!user) {
+            throw new UnauthorizedError("User not found");
+        }
+
+        req.user = user;
         next();
     } catch (error) {
         logger.info("Authentication error: invalid token");
