@@ -1,3 +1,3 @@
 export interface TokenDto {
-    email: string
+    email: string;
 }

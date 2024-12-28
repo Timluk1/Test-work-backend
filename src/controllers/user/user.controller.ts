@@ -3,8 +3,12 @@ import { Response, Request } from "express";
 import { IUserDto } from "../../dto/user.dto";
 import { authService } from "../../services/auth/auth.service";
 
-class UserController { 
-    public async register(req: Request<{}, {}, IUserDto>, res: Response, next: any) {
+class UserController {
+    public async register(
+        req: Request<{}, {}, IUserDto>,
+        res: Response,
+        next: any,
+    ) {
         try {
             const token = await authService.register(req.body);
             logger.info("User register request");
@@ -14,7 +18,11 @@ class UserController {
         }
     }
 
-    public async login(req: Request<{}, {}, IUserDto>, res: Response, next: any) {
+    public async login(
+        req: Request<{}, {}, IUserDto>,
+        res: Response,
+        next: any,
+    ) {
         try {
             const token = await authService.login(req.body);
             logger.info("User login request");

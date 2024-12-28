@@ -10,8 +10,8 @@ const logLevels = {
 };
 
 // Настраиваем winston
-export const logger = winston.createLogger({ 
-    level: 'info',
+export const logger = winston.createLogger({
+    level: "info",
     levels: logLevels,
     format: winston.format.cli(),
     transports: [new winston.transports.Console()],

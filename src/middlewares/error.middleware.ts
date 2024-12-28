@@ -1,5 +1,10 @@
-import { AppError } from "../lib/appError.js";
-import { ValidationError, NotFoundError, UnauthorizedError, ConflictError } from "../lib/appError";
+import { AppError } from "../lib/appError";
+import {
+    ValidationError,
+    NotFoundError,
+    UnauthorizedError,
+    ConflictError,
+} from "../lib/appError";
 import { Request, Response, NextFunction } from "express";
 
 // Middleware для обработки ошибок
@@ -7,7 +12,7 @@ export const errorMiddleware = (
     err: AppError,
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ): void => {
     let statusCode = 500; // Значение по умолчанию для неизвестных ошибок
     let message = "Internal Server Error"; // Сообщение по умолчанию
@@ -27,5 +32,5 @@ export const errorMiddleware = (
         statusCode = err.status || 409;
         message = err.message || "Conflict";
     }
-    res.status(statusCode).json({ message })
+    res.status(statusCode).json({ message });
 };
