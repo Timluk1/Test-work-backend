@@ -1,20 +1,32 @@
-import { User } from "../database/entities";
+import { Category, Status, User } from "../database/entities";
 
 export interface IFeedbackDto {
     title: string;
     description: string;
-    category: string;
-    status: string;
-}       
+    category_id: string; 
+    status_id: string;   
+}
 
-export interface IFeedback extends IFeedbackDto {
-    user: User;
+export interface IFeedbackCreate {
+    user: User; 
+    title: string;
+    description: string;
+    category_id: string; 
+    status_id: string;  
+}
+
+export interface IFeedbackRepository {
+    title: string;
+    description: string;
+    category: Category; 
+    status: Status;   
+    user: User;         
 }
 
 export interface IRequestDelete {
-    id: string;
+    id: string; 
 }
 
-export interface IRequestGetFeedbacks{
-    count: number | undefined;
+export interface IRequestGetFeedbacks {
+    count?: number; 
 }

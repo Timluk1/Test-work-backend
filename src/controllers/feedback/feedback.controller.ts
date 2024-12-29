@@ -8,6 +8,7 @@ class FeedbackController {
         try {
             const feedback: IFeedbackDto = req.body;
             const user = req.user;
+            // если не нашли пользователя при антефикации
             if (!user) {
                 throw new Error("User not found");
             }
