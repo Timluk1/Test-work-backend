@@ -3,7 +3,8 @@ import { Category } from "../entities";
 import { AppDataSource } from "../init";
 
 export class CategoryRepository {
-    private readonly categoryRepository: Repository<Category> = AppDataSource.getRepository(Category);
+    private readonly categoryRepository: Repository<Category> =
+        AppDataSource.getRepository(Category);
 
     public async createCategory(name: string): Promise<Category> {
         const category = this.categoryRepository.create({ name });
@@ -18,7 +19,10 @@ export class CategoryRepository {
         return await this.categoryRepository.find();
     }
 
-    public async updateCategory(id: string, name: string): Promise<Category | null> {
+    public async updateCategory(
+        id: string,
+        name: string,
+    ): Promise<Category | null> {
         const category = await this.getCategoryById(id);
         if (!category) return null;
 

@@ -8,4 +8,9 @@ export const userRouter = Router();
 
 // авторизация
 userRouter.post("/auth/login", userController.login);
-userRouter.post("/auth/register", userValidator, sendValidationError, userController.register);
+userRouter.post(
+    "/auth/register",
+    userValidator,
+    sendValidationError,
+    userController.register,
+);

@@ -11,6 +11,8 @@ export class Status {
     name!: string;
 
     // Связь с таблицей фидбеков
-    @OneToMany(() => Feedback, (feedback: Feedback) => feedback.status)
+    @OneToMany(() => Feedback, (feedback: Feedback) => feedback.status, {
+        onDelete: "RESTRICT",
+    })
     feedbacks!: Feedback[];
 }

@@ -15,9 +15,11 @@ export class User {
     password!: string;
 
     // связь с таблицей фидбеков
-    @OneToMany(() => Feedback, feedback => feedback.user) 
+    @OneToMany(() => Feedback, (feedback) => feedback.user, {
+        onDelete: "RESTRICT",
+    })
     feedbacks!: Feedback[];
 
-    @OneToMany(() => Upvotes, upvote => upvote.user) 
+    @OneToMany(() => Upvotes, (upvote) => upvote.user, { onDelete: "RESTRICT" })
     upvotes!: Upvotes[];
 }

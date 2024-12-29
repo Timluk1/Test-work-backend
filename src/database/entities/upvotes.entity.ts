@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column } from "typeorm";
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    ManyToOne,
+    JoinColumn,
+    Column,
+} from "typeorm";
 import { User } from "./user.entity";
 import { Feedback } from "./feedback.entity";
 
@@ -14,9 +20,9 @@ export class Upvotes {
     // связи с другими таблицами
     @ManyToOne(() => User, (user: User) => user.upvotes)
     @JoinColumn({ name: "user_id" })
-    user!: User; 
+    user!: User;
 
     @ManyToOne(() => Feedback, (feedbacks: Feedback) => feedbacks.upvotes)
     @JoinColumn({ name: "feedback_id" })
-    feedback!: Feedback; 
+    feedback!: Feedback;
 }

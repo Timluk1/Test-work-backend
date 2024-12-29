@@ -4,7 +4,11 @@ import { IFeedbackDto, IRequestGetFeedbacks } from "../../dto/feedback.dto";
 import { logger } from "../../lib/logger";
 
 class FeedbackController {
-    public async createFeedback(req: Request<{}, {}, IFeedbackDto>, res: Response, next: NextFunction) {
+    public async createFeedback(
+        req: Request<{}, {}, IFeedbackDto>,
+        res: Response,
+        next: NextFunction,
+    ) {
         try {
             const feedback: IFeedbackDto = req.body;
             const user = req.user;
@@ -12,7 +16,10 @@ class FeedbackController {
             if (!user) {
                 throw new Error("User not found");
             }
-            const newFeedback = await feedbackService.createFeedback({ ...feedback, user });
+            const newFeedback = await feedbackService.createFeedback({
+                ...feedback,
+                user,
+            });
             logger.info("Feedback created successfully");
             res.status(201).json(newFeedback);
         } catch (error) {
@@ -21,9 +28,13 @@ class FeedbackController {
         }
     }
 
-    public async getAllFeedbacks(req: Request<{}, {}, IRequestGetFeedbacks>, res: Response, next: NextFunction) {
+    public async getAllFeedbacks(
+        req: Request<{}, {}, IRequestGetFeedbacks>,
+        res: Response,
+        next: NextFunction,
+    ) {
         try {
-            const { count } = req.body;  
+            const { count } = req.body;
             const feedbacks = await feedbackService.getFeedbacks(count);
             logger.info("Feedbacks fetched successfully");
             res.status(200).json(feedbacks);
@@ -44,28 +55,38 @@ class FeedbackController {
         }
     }
 
-    public async updateFeedback(req: Request, res: Response, next: NextFunction) {
+    public async updateFeedback(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) {
         try {
-            const id = req.params.id; 
-            const updatedFeedbackData: IFeedbackDto = req.body; 
-    
-            const updatedFeedback = await feedbackService.updateFeedback(id, updatedFeedbackData);
+            const id = req.params.id;
+            const updatedFeedbackData: IFeedbackDto = req.body;
+
+            const updatedFeedback = await feedbackService.updateFeedback(
+                id,
+                updatedFeedbackData,
+            );
             logger.info("Feedback updated successfully");
-            res.status(200).json(updatedFeedback); 
+            res.status(200).json(updatedFeedback);
         } catch (error) {
             logger.error(error);
-            next(error); 
+            next(error);
         }
     }
-    
 
-    public async deleteFeedback(req: Request, res: Response, next: NextFunction) {
+    public async deleteFeedback(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) {
         try {
             const id = req.params.id;
             await feedbackService.deleteFeedback({ id });
             logger.info("Feedback deleted successfully");
             res.status(204).send();
-        } catch(error) {
+        } catch (error) {
             logger.error(error);
             next(error);
         }

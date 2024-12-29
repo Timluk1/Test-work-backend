@@ -3,7 +3,11 @@ import { categoryService } from "../../services/category/category.service";
 import { logger } from "../../lib/logger";
 
 class CategoryController {
-    public async getAllCategories(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async getAllCategories(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const categories = await categoryService.getAllCategories();
             res.status(200).json(categories);
@@ -13,7 +17,11 @@ class CategoryController {
         }
     }
 
-    public async getCategoryById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async getCategoryById(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { id } = req.params;
             const category = await categoryService.getCategoryById(id);
@@ -24,7 +32,11 @@ class CategoryController {
         }
     }
 
-    public async createCategory(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async createCategory(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { name } = req.body;
             const category = await categoryService.createCategory(name);
@@ -35,11 +47,18 @@ class CategoryController {
         }
     }
 
-    public async updateCategory(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async updateCategory(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { id } = req.params;
             const { name } = req.body;
-            const updatedCategory = await categoryService.updateCategory(id, name);
+            const updatedCategory = await categoryService.updateCategory(
+                id,
+                name,
+            );
             res.status(200).json(updatedCategory);
         } catch (error) {
             logger.error(error);
@@ -47,7 +66,11 @@ class CategoryController {
         }
     }
 
-    public async deleteCategory(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async deleteCategory(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { id } = req.params;
             await categoryService.deleteCategory(id);

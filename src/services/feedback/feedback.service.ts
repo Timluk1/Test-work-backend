@@ -13,7 +13,9 @@ import { NotFoundError } from "../../lib/appError";
 import { isValidUUID } from "../../validation/checkUuid";
 
 class FeedbackService {
-    public async createFeedback(feedback: IFeedbackCreate): Promise<Feedback | null> {
+    public async createFeedback(
+        feedback: IFeedbackCreate,
+    ): Promise<Feedback | null> {
         const { user, title, description, category_id, status_id } = feedback;
 
         // Проверяем наличие статуса
@@ -37,8 +39,11 @@ class FeedbackService {
             category,
         };
 
-        const newFeedbackDb = await feedbackRepository.createFeedback(newFeedback);
-        const response = await feedbackRepository.getFeedbackById(newFeedbackDb.id);
+        const newFeedbackDb =
+            await feedbackRepository.createFeedback(newFeedback);
+        const response = await feedbackRepository.getFeedbackById(
+            newFeedbackDb.id,
+        );
         return response;
     }
 
@@ -63,7 +68,7 @@ class FeedbackService {
 
     public async updateFeedback(
         id: string,
-        updatedFeedbackData: IFeedbackDto
+        updatedFeedbackData: IFeedbackDto,
     ): Promise<Feedback> {
         if (!isValidUUID(id)) {
             throw new NotFoundError("Invalid feedback id");
@@ -83,8 +88,12 @@ class FeedbackService {
         return await feedbackRepository.saveFeedback(updatedFeedback);
     }
 
-    public async deleteFeedback(requestDeleteDto: IRequestDelete): Promise<void> {
-        const feedback = await feedbackRepository.getFeedbackById(requestDeleteDto.id);
+    public async deleteFeedback(
+        requestDeleteDto: IRequestDelete,
+    ): Promise<void> {
+        const feedback = await feedbackRepository.getFeedbackById(
+            requestDeleteDto.id,
+        );
         if (!feedback) {
             throw new NotFoundError("Feedback not found");
         }

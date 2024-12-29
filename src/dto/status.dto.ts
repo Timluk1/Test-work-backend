@@ -1,3 +1,3 @@
 export interface StatusDto {
-    name: string
+    name: string;
 }

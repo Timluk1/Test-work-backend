@@ -3,7 +3,8 @@ import { Status } from "../entities";
 import { AppDataSource } from "../init";
 
 export class StatusRepository {
-    private readonly statusRepository: Repository<Status> = AppDataSource.getRepository(Status);
+    private readonly statusRepository: Repository<Status> =
+        AppDataSource.getRepository(Status);
     public async createStatus(name: string): Promise<Status> {
         const status = this.statusRepository.create({ name });
         return await this.statusRepository.save(status);
@@ -17,7 +18,10 @@ export class StatusRepository {
         return await this.statusRepository.find();
     }
 
-    public async updateStatus(id: string, name: string): Promise<Status | null> {
+    public async updateStatus(
+        id: string,
+        name: string,
+    ): Promise<Status | null> {
         const status = await this.getStatusById(id);
         if (!status) return null;
 
