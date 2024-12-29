@@ -18,7 +18,7 @@ const initAllRoutes = (app: Express) => {
     app.use("/api", checkAuthMiddleware, categoryRouter);
     // роуты для работы с реакциями защищены токеном
     app.use("/api", checkAuthMiddleware, upvotesRouter);
-    // роуты для работы со статусами защищены токеном 
+    // роуты для работы со статусами защищены токеном
     app.use("/api", checkAuthMiddleware, statusRouter);
 };
 

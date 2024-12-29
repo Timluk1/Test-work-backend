@@ -11,6 +11,8 @@ export class Category {
     name!: string;
 
     // Связь с таблицей отзывов
-    @OneToMany(() => Feedback, (feedback: Feedback) => feedback.category)
+    @OneToMany(() => Feedback, (feedback: Feedback) => feedback.category, {
+        onDelete: "RESTRICT",
+    })
     feedbacks!: Feedback[];
 }

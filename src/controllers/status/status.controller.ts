@@ -3,7 +3,11 @@ import { statusService } from "../../services/status/status.service";
 import { logger } from "../../lib/logger";
 
 class StatusController {
-    public async getAllStatuses(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async getAllStatuses(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const statuses = await statusService.getAllStatuses();
             res.status(200).json(statuses);
@@ -13,7 +17,11 @@ class StatusController {
         }
     }
 
-    public async getStatusById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async getStatusById(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { id } = req.params;
             const status = await statusService.getStatusById(id);
@@ -24,7 +32,11 @@ class StatusController {
         }
     }
 
-    public async createStatus(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async createStatus(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { name } = req.body;
             const status = await statusService.createStatus(name);
@@ -35,7 +47,11 @@ class StatusController {
         }
     }
 
-    public async updateStatus(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async updateStatus(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { id } = req.params;
             const { name } = req.body;
@@ -47,7 +63,11 @@ class StatusController {
         }
     }
 
-    public async deleteStatus(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async deleteStatus(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const { id } = req.params;
             await statusService.deleteStatus(id);

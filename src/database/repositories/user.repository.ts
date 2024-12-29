@@ -4,7 +4,8 @@ import { User } from "../entities/user.entity";
 import { AppDataSource } from "../init";
 
 export class UserRepository {
-    private readonly userRepository: Repository<User> = AppDataSource.getRepository(User);
+    private readonly userRepository: Repository<User> =
+        AppDataSource.getRepository(User);
 
     // Пример метода для получения всех пользователей
     public async getAllUsers(): Promise<User[]> {

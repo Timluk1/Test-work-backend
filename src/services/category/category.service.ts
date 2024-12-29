@@ -35,7 +35,10 @@ export class CategoryService {
             throw new ValidationError("Name is required");
         }
 
-        const updatedCategory = await categoryRepository.updateCategory(id, name);
+        const updatedCategory = await categoryRepository.updateCategory(
+            id,
+            name,
+        );
         if (!updatedCategory) {
             throw new NotFoundError("Category not found");
         }
