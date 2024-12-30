@@ -1,0 +1,49 @@
+version: '3.8'
+
+networks:
+  production:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - server
+      - database
+    networks:
+      - production
+
+  server:
+    build:
+      context: .
+    environment:
+      TYPE_ENVIROMENT: production
+      # порт, на котором работает бекенд
+      EXPRESS_PORT: 4000
+      # пароль от базы данных. ВАЖНО, ЧТО ОН ДОЛЖЕН СОВПАДАТЬ С ПАРОЛЕМ, КОТОРЫЙ УКАЗАН В КОНФИГЕ database
+      POSTGRES_PASSWORD: app
+      # пользователь базы данных. ВАЖНО, ЧТО ОН ДОЛЖЕН СОВПАДАТЬ С ПОЛЬЗОВАТЕЛЕМ, КОТОРЫЙ УКАЗАН В КОНФИГЕ database
+      POSTRGRES_USERNAME: app
+      # порт базы данных, по умолчанию 5432
+      POSTGRES_PORT: 5432
+      # имя базы данных. ВАЖНО, ЧТО ОНО ДОЛЖНО СОВПАДАТЬ С ИМЕНЕМ, КОТОРОЕ УКАЗАНО В КОНФИГЕ database
+      POSTGRES_DATABASE: feedback
+      # секретный ключ для хэширования токенов для авторизации
+      JWT_SECRET: YOUR_JWT_SECRET
+    depends_on:
+      - database
+    networks:
+      - production
+
+  database:
+    image: postgres:13-alpine
+    # можете указать любые данные для создания базы данных
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: feedback
+    networks:
+      - production

@@ -18,6 +18,7 @@ const main = () => {
             logger.info("Database connected");
         })
         .catch((err) => {
+            console.log(err)
             logger.error("Database connection error", err.message);
         });
 
